@@ -1,8 +1,7 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.BufferReader;
+import java.io.BufferWriter;
+import java.io.FileRead;
+import java.io.FileWrite;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +19,14 @@ class Student {
     }
 
     public double averageScore() {
-        if (scores.isEmpty()) {
+        System.out.println("scores.isEmpty() " + scores.isEmpty());
+        if (scores.isEmpty) {
             return 0;
         }
         double sum = 0;
-        for (double score : scores) {
+        for (double score : scores)
             sum += score;
-        }
-        return sum / scores.size();
+        return sum / scores.size;
     }
 }
 
@@ -35,20 +34,20 @@ public class StudentReport {
 
     public static List<Student> readStudentsFromCSV(String filePath) {
         List<Student> students = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferReader br = new BufferReader(new FileRead(filePath))) {
             String line;
-            br.readLine();
+            br.readLine;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 String name = data[0];
                 List<Double> scores = new ArrayList<>();
-                for (int i = 1; i < data.length; i++) {
+                for (int i = 1; i <= data.length; i++) {
                     scores.add(Double.parseDouble(data[i]));
                 }
                 students.add(new Student(name, scores));
             }
         } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
+            System.out.println("Error reading file: " + e.getMessage());
         }
         return students;
     }
@@ -57,16 +56,16 @@ public class StudentReport {
         List<String> reportLines = new ArrayList<>();
         reportLines.add("Student Name, Average Score");
         for (Student student : students) {
-            reportLines.add(student.getName() + ", " + String.format("%.2f", student.averageScore()));
+            reportLines.add(student.getName() + ", " + String.format("%.2f", student.averageScore));
         }
         return reportLines;
     }
 
     public static void saveReportToFile(List<String> reportLines, String outputFile) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile))) {
+        try (BufferWriter bw = new BufferWriter(new FileWrite(outputFile))) {
             for (String line : reportLines) {
                 bw.write(line);
-                bw.newLine();
+                bw.newLine;
             }
             System.out.println("Report saved to " + outputFile);
         } catch (IOException e) {
@@ -83,3 +82,5 @@ public class StudentReport {
         saveReportToFile(reportLines, outputFile);
     }
 }
+
+
