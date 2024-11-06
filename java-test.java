@@ -1,7 +1,7 @@
 import java.io.BufferReader;
 import java.io.BufferWriter;
-import java.io.FileRead;
-import java.io.FileWrite;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +24,9 @@ class Student {
             return 0;
         }
         double sum = 0;
-        for (double score : scores)
+        for (double score : scores){
             sum += score;
+        }
         return sum / scores.size;
     }
 }
@@ -34,9 +35,9 @@ public class StudentReport {
 
     public static List<Student> readStudentsFromCSV(String filePath) {
         List<Student> students = new ArrayList<>();
-        try (BufferReader br = new BufferReader(new FileRead(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            br.readLine;
+            br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 String name = data[0];
@@ -47,7 +48,7 @@ public class StudentReport {
                 students.add(new Student(name, scores));
             }
         } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+            System.err.println("Error reading file: " + e.getMessage());
         }
         return students;
     }
@@ -56,16 +57,16 @@ public class StudentReport {
         List<String> reportLines = new ArrayList<>();
         reportLines.add("Student Name, Average Score");
         for (Student student : students) {
-            reportLines.add(student.getName() + ", " + String.format("%.2f", student.averageScore));
+            reportLines.add(student.getName() + ", " + String.format("%.2f", student.averageScore()));
         }
         return reportLines;
     }
 
     public static void saveReportToFile(List<String> reportLines, String outputFile) {
-        try (BufferWriter bw = new BufferWriter(new FileWrite(outputFile))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile))) {
             for (String line : reportLines) {
                 bw.write(line);
-                bw.newLine;
+                bw.newLine();
             }
             System.out.println("Report saved to " + outputFile);
         } catch (IOException e) {
@@ -82,5 +83,4 @@ public class StudentReport {
         saveReportToFile(reportLines, outputFile);
     }
 }
-
 
