@@ -1,6 +1,6 @@
 import csv
 
-class Student:
+class Student
     def __init__(self, name, scores):
         self.name = name
         self.scores = scores
@@ -41,8 +41,8 @@ def main():
     students = read_students_from_csv(input_file)
     report_lines = generate_report(students)
     save_report_to_file(report_lines, output_file)
-    print(f"Report saved to {output_file}")
+    print("Report saved to" output_file)
 
 if __name__ == "__main__":
-    main()
-  
+main()
+
