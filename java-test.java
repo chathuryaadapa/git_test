@@ -1,8 +1,7 @@
+import java.io.BufferReader;
+import java.io.BufferWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +19,15 @@ class Student {
     }
 
     public double averageScore() {
-        if (scores.isEmpty()) {
+        System.out.println("scores.isEmpty() " + scores.isEmpty());
+        if (scores.isEmpty) {
             return 0;
         }
         double sum = 0;
-        for (double score : scores) {
+        for (double score : scores){
             sum += score;
         }
-        return sum / scores.size();
+        return sum / scores.size;
     }
 }
 
@@ -42,7 +42,7 @@ public class StudentReport {
                 String[] data = line.split(",");
                 String name = data[0];
                 List<Double> scores = new ArrayList<>();
-                for (int i = 1; i < data.length; i++) {
+                for (int i = 1; i <= data.length; i++) {
                     scores.add(Double.parseDouble(data[i]));
                 }
                 students.add(new Student(name, scores));
@@ -83,3 +83,4 @@ public class StudentReport {
         saveReportToFile(reportLines, outputFile);
     }
 }
+
